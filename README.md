@@ -1,6 +1,11 @@
+
+
 Note*** I am unable to turn on by bangla keyboard so i am submitting the answers in English!!!
 
-<!-- 1) Difference between null and unidentified- -->
+
+
+
+------ 1) Difference between null and unidentified----------
 
 --Null:When a variable is knowingly set to zero or empty then that variable iss called null.
 ex- let x =null;
@@ -9,7 +14,14 @@ ex- let x =null;
 ex- var p;
 console.log(p);
 
-<!-- 2) What is the use of the map() function in JavaScript? How is it different from forEach()? -->
+
+
+
+
+
+
+
+------ 2) What is the use of the map() function in JavaScript? How is it different from forEach()?-------------
 
 Map() : Map() is a type of array where it works on each element of the array and returns a new type of array.As it returns the new array in this sector it is different from forEach
 
@@ -26,7 +38,10 @@ exp- nums.forEach(num => {
 
 
 
-<!-- 3) What is the difference between == and ===? -->
+
+
+
+------- 3) What is the difference between == and ===? ---------------
 
 
 The main difference is that,
@@ -35,13 +50,24 @@ The main difference is that,
 '===' checks both the value and type of the data, if both are true then it returns true.
 
 
-<!-- 4) What is the significance of async/await in fetching API data? -->
+
+
+
+
+
+-------- 4) What is the significance of async/await in fetching API data?------------------
 
 
 Async/await dispayes a asynchronous code in syncrounous way. It makes the code clean and easier to interpret when written for a huge numbers of API . It smotthens the promise handling by replacing '.then' keyword.
 
 
-<!-- 5) Explain the concept of Scope in JavaScript (Global, Function, Block). -->
+
+
+
+
+
+
+-------- 5) Explain the concept of Scope in JavaScript (Global, Function, Block). -----------------
 
 
 Global : A variable which can be used from any part of the code is called global scoped variable.
