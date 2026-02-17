@@ -1,13 +1,24 @@
 const productsContainer = document.getElementById("products");
-const categoryContainer = document.getElementById("categories");
-const cartCount = document.getElementById("cart-count");
+const categoriesContainer = document.getElementById("categories");
 const loading = document.getElementById("loading");
 const modal = document.getElementById("detailsModal");
 const modalContent = document.getElementById("modal-content");
+const cartModal = document.getElementById("cartModal");
+const cartItemsContainer = document.getElementById("cart-items");
+const totalPriceEl = document.getElementById("total-price");
+const cartCount = document.getElementById("cart-count");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// ================= Load Categories =================
+function updateCart() {
+  cartCount.innerText = cart.length;
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function showLoading(state) {
+  loading.classList.toggle("hidden", !state);
+}
+
 async function loadCategories() {
   const res = await fetch("https://fakestoreapi.com/products/categories");
   const data = await res.json();
@@ -16,21 +27,21 @@ async function loadCategories() {
     const btn = document.createElement("button");
     btn.className = "btn btn-outline capitalize";
     btn.innerText = cat;
-    btn.onclick = () => loadProductsByCategory(cat, btn);
-    categoryContainer.appendChild(btn);
+    btn.onclick = () => loadByCategory(cat, btn);
+    categoriesContainer.appendChild(btn);
   });
 }
 
-// ================= Load Products =================
 async function loadProducts() {
   showLoading(true);
   const res = await fetch("https://fakestoreapi.com/products");
   const data = await res.json();
   showLoading(false);
+
   displayProducts(data);
 }
 
-async function loadProductsByCategory(category, btn) {
+async function loadByCategory(category, btn) {
   showLoading(true);
 
   document.querySelectorAll("#categories button")
@@ -45,7 +56,6 @@ async function loadProductsByCategory(category, btn) {
   displayProducts(data);
 }
 
-// ================= Display Products =================
 function displayProducts(products) {
   productsContainer.innerHTML = "";
 
@@ -67,7 +77,7 @@ function displayProducts(products) {
         <div class="card-actions justify-between mt-2">
           <button onclick="showDetails(${product.id})"
             class="btn btn-sm btn-outline">Details</button>
-          <button onclick="addToCart(${product.id})"
+          <button onclick="addToCart(${product.id}, ${product.price})"
             class="btn btn-sm btn-primary">Add</button>
         </div>
       </div>
@@ -77,7 +87,6 @@ function displayProducts(products) {
   });
 }
 
-// ================= Modal =================
 async function showDetails(id) {
   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
   const product = await res.json();
@@ -88,30 +97,47 @@ async function showDetails(id) {
     <p class="my-3">${product.description}</p>
     <p class="font-bold">$${product.price}</p>
     <p>⭐ ${product.rating.rate}</p>
-    <button onclick="addToCart(${product.id})"
+    <button onclick="addToCart(${product.id}, ${product.price})"
       class="btn btn-primary mt-4">Add to Cart</button>
   `;
 
   modal.showModal();
 }
 
-// ================= Cart =================
-function addToCart(id) {
-  cart.push(id);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount();
+function addToCart(id, price) {
+  cart.push({ id, price });
+  updateCart();
 }
 
-function updateCartCount() {
-  cartCount.innerText = cart.length;
+function openCart() {
+  cartItemsContainer.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price;
+
+    cartItemsContainer.innerHTML += `
+      <div class="flex justify-between mb-2">
+        <span>Item ${item.id}</span>
+        <div>
+          $${item.price}
+          <button onclick="removeItem(${index})"
+            class="text-red-500 ml-2">❌</button>
+        </div>
+      </div>
+    `;
+  });
+
+  totalPriceEl.innerText = total.toFixed(2);
+  cartModal.showModal();
 }
 
-// ================= Loading =================
-function showLoading(state) {
-  loading.classList.toggle("hidden", !state);
+function removeItem(index) {
+  cart.splice(index, 1);
+  updateCart();
+  openCart();
 }
 
-// ================= Init =================
-updateCartCount();
+updateCart();
 loadCategories();
 loadProducts();

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SwiftCart</title>
 
   <!-- DaisyUI + Tailwind -->
@@ -12,74 +12,128 @@
 
 <body class="bg-gray-50">
 
-  <!-- ================= NAVBAR ================= -->
-  <div class="navbar bg-base-100 shadow-md px-6">
-    <div class="flex-1">
-      <a class="text-2xl font-bold text-primary">SwiftCart</a>
-    </div>
-
-    <div class="flex-none hidden md:flex gap-6">
-      <a class="hover:text-primary">Home</a>
-      <a class="hover:text-primary">Products</a>
-      <a class="hover:text-primary">About</a>
-      <a class="hover:text-primary">Contact</a>
-    </div>
-
-    <div class="flex-none ml-6">
-      <button class="btn btn-ghost relative">
-        🛒
-        <span id="cart-count"
-          class="badge badge-primary absolute -top-2 -right-2">0</span>
-      </button>
-    </div>
+<!-- ================= NAVBAR ================= -->
+<div class="navbar bg-base-100 shadow-md px-6">
+  <div class="flex-1">
+    <a class="text-2xl font-bold text-primary">SwiftCart</a>
   </div>
 
-  <!-- ================= HERO ================= -->
-  <section class="hero min-h-[60vh]"
-    style="background-image: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da');">
-    <div class="hero-overlay bg-black bg-opacity-60"></div>
-    <div class="hero-content text-center text-white">
-      <div>
-        <h1 class="text-4xl font-bold">Best Collection For You</h1>
-        <p class="py-4">Discover the latest fashion & electronics.</p>
-        <button class="btn btn-primary">Shop Now</button>
-      </div>
+  <div class="hidden md:flex gap-6">
+    <a>Home</a>
+    <a>Products</a>
+    <a>About</a>
+    <a>Contact</a>
+  </div>
+
+  <div>
+    <button class="btn btn-ghost relative" onclick="openCart()">
+      🛒
+      <span id="cart-count"
+        class="badge badge-primary absolute -top-2 -right-2">0</span>
+    </button>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero min-h-[60vh] bg-cover bg-center"
+  style="background-image: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da');">
+  <div class="hero-overlay bg-black bg-opacity-60"></div>
+  <div class="hero-content text-center text-white">
+    <div>
+      <h1 class="text-4xl font-bold">Best Collection For You</h1>
+      <p class="py-4">Discover the latest fashion & electronics.</p>
+      <button class="btn btn-primary">Shop Now</button>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ================= CATEGORIES ================= -->
-  <section class="px-6 py-10">
-    <h2 class="text-2xl font-bold mb-6 text-center">Categories</h2>
-    <div id="categories" class="flex flex-wrap justify-center gap-4"></div>
-  </section>
+<!-- ================= FEATURES ================= -->
+<section class="py-16 px-6">
+  <h2 class="text-3xl font-bold text-center mb-10">Why Choose Us</h2>
 
-  <!-- ================= PRODUCTS ================= -->
-  <section class="px-6 pb-16">
-    <h2 class="text-2xl font-bold mb-6 text-center">Products</h2>
-    <div id="loading" class="text-center hidden">
-      <span class="loading loading-spinner loading-lg text-primary"></span>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+    <div class="p-6 bg-white shadow rounded-lg">
+      <h3 class="text-xl font-bold">🚚 Fast Delivery</h3>
+      <p>Quick & safe delivery system.</p>
     </div>
-    <div id="products"
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-  </section>
 
-  <!-- ================= MODAL ================= -->
-  <dialog id="detailsModal" class="modal">
-    <div class="modal-box max-w-2xl">
-      <div id="modal-content"></div>
-      <div class="modal-action">
-        <form method="dialog">
-          <button class="btn">Close</button>
-        </form>
-      </div>
+    <div class="p-6 bg-white shadow rounded-lg">
+      <h3 class="text-xl font-bold">💳 Secure Payment</h3>
+      <p>100% secure payment method.</p>
     </div>
-  </dialog>
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="footer footer-center p-6 bg-base-200">
+    <div class="p-6 bg-white shadow rounded-lg">
+      <h3 class="text-xl font-bold">📞 24/7 Support</h3>
+      <p>Always here to help you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATEGORIES ================= -->
+<section class="px-6 py-8">
+  <h2 class="text-2xl font-bold text-center mb-6">Categories</h2>
+  <div id="categories" class="flex flex-wrap justify-center gap-4"></div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="px-6 pb-16">
+  <h2 class="text-2xl font-bold text-center mb-6">Products</h2>
+
+  <div id="loading" class="text-center hidden">
+    <span class="loading loading-spinner loading-lg text-primary"></span>
+  </div>
+
+  <div id="products"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  </div>
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section class="bg-base-200 py-12 text-center">
+  <h2 class="text-2xl font-bold mb-4">Subscribe Newsletter</h2>
+  <input type="email" placeholder="Enter your email"
+    class="input input-bordered w-64">
+  <button class="btn btn-primary ml-2">Subscribe</button>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer footer-center p-6 bg-base-300">
+  <div>
     <p>© 2026 SwiftCart. All rights reserved.</p>
-  </footer>
+    <div class="flex gap-4 justify-center mt-2">
+      <a>Facebook</a>
+      <a>Twitter</a>
+      <a>Instagram</a>
+    </div>
+  </div>
+</footer>
 
-  <script src="script.js"></script>
+<!-- ================= MODAL ================= -->
+<dialog id="detailsModal" class="modal">
+  <div class="modal-box max-w-2xl">
+    <div id="modal-content"></div>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<!-- ================= CART MODAL ================= -->
+<dialog id="cartModal" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg mb-4">Cart Items</h3>
+    <div id="cart-items"></div>
+    <h4 class="mt-4 font-bold">Total: $<span id="total-price">0</span></h4>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<script src="script.js"></script>
 </body>
 </html>
