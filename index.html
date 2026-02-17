@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwiftCart</title>
+
+  <!-- DaisyUI + Tailwind -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gray-50">
+
+  <!-- ================= NAVBAR ================= -->
+  <div class="navbar bg-base-100 shadow-md px-6">
+    <div class="flex-1">
+      <a class="text-2xl font-bold text-primary">SwiftCart</a>
+    </div>
+
+    <div class="flex-none hidden md:flex gap-6">
+      <a class="hover:text-primary">Home</a>
+      <a class="hover:text-primary">Products</a>
+      <a class="hover:text-primary">About</a>
+      <a class="hover:text-primary">Contact</a>
+    </div>
+
+    <div class="flex-none ml-6">
+      <button class="btn btn-ghost relative">
+        🛒
+        <span id="cart-count"
+          class="badge badge-primary absolute -top-2 -right-2">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero min-h-[60vh]"
+    style="background-image: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da');">
+    <div class="hero-overlay bg-black bg-opacity-60"></div>
+    <div class="hero-content text-center text-white">
+      <div>
+        <h1 class="text-4xl font-bold">Best Collection For You</h1>
+        <p class="py-4">Discover the latest fashion & electronics.</p>
+        <button class="btn btn-primary">Shop Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CATEGORIES ================= -->
+  <section class="px-6 py-10">
+    <h2 class="text-2xl font-bold mb-6 text-center">Categories</h2>
+    <div id="categories" class="flex flex-wrap justify-center gap-4"></div>
+  </section>
+
+  <!-- ================= PRODUCTS ================= -->
+  <section class="px-6 pb-16">
+    <h2 class="text-2xl font-bold mb-6 text-center">Products</h2>
+    <div id="loading" class="text-center hidden">
+      <span class="loading loading-spinner loading-lg text-primary"></span>
+    </div>
+    <div id="products"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+  </section>
+
+  <!-- ================= MODAL ================= -->
+  <dialog id="detailsModal" class="modal">
+    <div class="modal-box max-w-2xl">
+      <div id="modal-content"></div>
+      <div class="modal-action">
+        <form method="dialog">
+          <button class="btn">Close</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer footer-center p-6 bg-base-200">
+    <p>© 2026 SwiftCart. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
