@@ -87,6 +87,54 @@ function displayProducts(products) {
   });
 }
 
+
+
+async function loadTopRated() {
+  const res = await fetch("https://fakestoreapi.com/products");
+  const data = await res.json();
+
+  // Sort by rating (highest first)
+  const sorted = data.sort((a, b) => 
+    b.rating.rate - a.rating.rate
+  );
+
+  const topThree = sorted.slice(0, 3);
+
+  const container = document.getElementById("top-rated");
+  container.innerHTML = "";
+
+  topThree.forEach(product => {
+    container.innerHTML += `
+      <div class="card bg-base-100 shadow-lg">
+        <figure class="p-4 h-56">
+          <img src="${product.image}"
+            class="h-full object-contain" />
+        </figure>
+
+        <div class="card-body text-center">
+          <h2 class="card-title text-sm justify-center">
+            ${product.title.slice(0, 40)}...
+          </h2>
+
+          <p class="text-primary font-bold">
+            $${product.price}
+          </p>
+
+          <p class="text-yellow-500 font-semibold">
+            ⭐ ${product.rating.rate}
+          </p>
+
+          <button onclick="showDetails(${product.id})"
+            class="btn btn-primary btn-sm mt-3">
+            View Details
+          </button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+
 async function showDetails(id) {
   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
   const product = await res.json();
@@ -138,6 +186,8 @@ function removeItem(index) {
   openCart();
 }
 
+
+loadTopRated();
 updateCart();
 loadCategories();
 loadProducts();
